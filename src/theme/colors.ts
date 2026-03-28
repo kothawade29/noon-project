@@ -21,4 +21,8 @@ export const colors = {
   /** Native header (stack) */
   headerTint: '#c4cddc',
   headerTitle: '#f2f5fa',
+
+  actionFill: '#2d3d52',
+  actionLabel: '#f2f5fa',
+  actionDisabled: '#3a4558',
 } as const;

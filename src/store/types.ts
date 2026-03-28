@@ -7,6 +7,8 @@ export type CatalogSlice = {
 
 export type CartSlice = {
   cartLineItems: readonly string[];
+  /** Increments on each add — header badge subscribes for pulse animation. */
+  cartBadgePulseId: number;
   addToCart: (productId: string) => void;
 };
 
