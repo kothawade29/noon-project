@@ -42,8 +42,8 @@ Hero transition (`SharedTransition` + `sharedTransitionTag`), carousel focus/par
 **To:** Lead Product Designer  
 **Subject:** Shop motion — shared hero, carousel focus, and add-to-cart feedback  
 
-- Tapping a product uses a **shared transition** from the grid image into the **first** detail photo so it reads as one image moving, not a hard cut.
-- Other photos sit in a **horizontal carousel**; the centred slide is a bit **larger and more opaque** so the active image is obvious while you swipe.
-- **Add to cart** doesn’t open a cart screen—we **bounce the bag** in the header and **fly a small square** of the product image into it so feedback still feels clear.
-- With **Reduce Motion** on, we **skip the fly**; the item still adds and the **badge updates**.
-- The **list → detail spring** is intentionally a little **soft** so the transition is easy to follow—we can tighten it after you’ve tried it on device.
+- Tapping a product uses a shared transition from the grid image into the first detail photo so it reads as one image moving, not a hard cut.
+- Other photos sit in a horizontal carousel; the centred slide is a bit larger and more opaque so the active image is obvious while you swipe.
+- Add to cart doesn’t open a cart screen—we bounce the bag in the header and fly a small square of the product image into it so feedback still feels clear.
+- With Reduce Motion on, we skip the fly; the item still adds and the badge updates.
+- The list → detail spring is intentionally a little soft so the transition is easy to follow—we can tighten it after you’ve tried it on device.
