@@ -5,33 +5,37 @@ import Animated from 'react-native-reanimated';
 import { colors } from '../../../theme/colors';
 import { heroSharedTransition } from './heroSharedTransition';
 
+export type ProductHeroImageVariant = 'grid';
+
 type Props = {
   uri: string;
   productId: string;
-  variant: 'grid' | 'detail';
+  variant: ProductHeroImageVariant;
   width: number;
-  detailHeight?: number;
 };
+
+function frameStyleForVariant(variant: ProductHeroImageVariant, width: number) {
+  switch (variant) {
+    case 'grid':
+      return {
+        width,
+        height: width,
+        borderRadius: 14,
+        overflow: 'hidden' as const,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: colors.border,
+      };
+  }
+}
 
 export const ProductHeroImage = memo(function ProductHeroImage({
   uri,
   productId,
   variant,
   width,
-  detailHeight = 360,
 }: Props) {
   const tag = `hero-${productId}`;
-  const frameStyle =
-    variant === 'grid'
-      ? {
-          width,
-          height: width,
-          borderRadius: 14,
-          overflow: 'hidden' as const,
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: colors.border,
-        }
-      : { width, height: detailHeight, borderRadius: 0, overflow: 'hidden' as const };
+  const frameStyle = frameStyleForVariant(variant, width);
 
   return (
     <Animated.View

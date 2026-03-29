@@ -7,7 +7,7 @@ import Animated, {
   withSequence,
   withSpring,
 } from 'react-native-reanimated';
-import { useAppStore } from '../store/appStore';
+import { useAppStore } from '../store';
 import { colors } from '../theme/colors';
 import { useCartAnchor } from './CartAnchorContext';
 

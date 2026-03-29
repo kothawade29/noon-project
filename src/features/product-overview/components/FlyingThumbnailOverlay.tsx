@@ -64,7 +64,6 @@ export function FlyingThumbnailOverlay({ payload, onFinished }: Props) {
       top: fy.value + (ty.value - fy.value) * p,
       width: fw.value + (tw.value - fw.value) * p,
       height: fh.value + (th.value - fh.value) * p,
-      opacity: 0.98,
     };
   });
 

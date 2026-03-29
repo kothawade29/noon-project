@@ -2,6 +2,13 @@
 
 Expo (React Native) shop demo: product grid, shared-element hero into a focus-style image carousel, Zustand cart, header badge pulse, and add-to-cart flying thumbnail.
 
+## Run
+
+```bash
+npm install
+npx expo start
+```
+
 ## Technical stack
 
 | Layer | Choice |
@@ -14,14 +21,6 @@ Expo (React Native) shop demo: product grid, shared-element hero into a focus-st
 | **Images** | **expo-image** |
 | **State** | **Zustand 5** — composed slices for catalog + cart (`src/store/`) |
 | **Other** | **react-native-screens**, **react-native-safe-area-context**, **@expo/vector-icons** |
-
-## Run
-
-```bash
-npm install && npx expo start
-```
-
-Use `i` / `a` in the CLI for iOS simulator or Android emulator once the bundler is running.
 
 ## Known limitations and trade-offs
 
@@ -43,4 +42,8 @@ Hero transition (`SharedTransition` + `sharedTransitionTag`), carousel focus/par
 **To:** Lead Product Designer  
 **Subject:** Shop motion — shared hero, carousel focus, and add-to-cart feedback  
 
-We implemented list-to-detail with a **Reanimated shared transition** from the grid hero to the **first** gallery frame so the handoff feels like one surface; additional images sit in the same horizontal carousel with **scroll-linked scale and opacity** so the centred card reads as “in focus” without extra UI. For add-to-cart (without a cart screen), the **header bag springs** on each add and a **square thumbnail flies** on a timed path into that anchor for clear feedback. **Reduce Motion** skips the flight but still updates the cart and badge—that’s the accessibility trade-off we chose over identical visuals for everyone. The **hero spring** is tuned for a **readable morph** rather than maximum stiffness; we can iterate damping and duration once we lock reference devices. Happy to align timings with the broader motion system in the next sync if useful.
+- Tapping a product uses a **shared transition** from the grid image into the **first** detail photo so it reads as one image moving, not a hard cut.
+- Other photos sit in a **horizontal carousel**; the centred slide is a bit **larger and more opaque** so the active image is obvious while you swipe.
+- **Add to cart** doesn’t open a cart screen—we **bounce the bag** in the header and **fly a small square** of the product image into it so feedback still feels clear.
+- With **Reduce Motion** on, we **skip the fly**; the item still adds and the **badge updates**.
+- The **list → detail spring** is intentionally a little **soft** so the transition is easy to follow—we can tighten it after you’ve tried it on device.

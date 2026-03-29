@@ -13,6 +13,11 @@ import {
 import { ProductImageCarousel } from '../components/ProductImageCarousel';
 import { ProductOverviewActions, shouldSkipFlightAnimation } from '../components/ProductOverviewActions';
 import { ProductOverviewMeta } from '../components/ProductOverviewMeta';
+import {
+  ADD_TO_CART_END_INTERACTION_DELAY_MS,
+  FLIGHT_LANDING_THUMB_SIZE_PX,
+  MEASURE_INVALID_MAX_PX,
+} from '../constants/addToCartFlight';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProductOverview'>;
 
@@ -48,7 +53,7 @@ export function ProductOverviewScreen({ navigation, route }: Props) {
     addToCart(productId);
 
     const failSoft = () => {
-      setTimeout(endInteraction, 420);
+      setTimeout(endInteraction, ADD_TO_CART_END_INTERACTION_DELAY_MS);
     };
 
     const skipMotion = await shouldSkipFlightAnimation();
@@ -65,19 +70,19 @@ export function ProductOverviewScreen({ navigation, route }: Props) {
         return;
       }
       src.measureInWindow((sx, sy, sw, sh) => {
-        if (sw <= 1 || sh <= 1) {
+        if (sw <= MEASURE_INVALID_MAX_PX || sh <= MEASURE_INVALID_MAX_PX) {
           failSoft();
           return;
         }
         cart.measureInWindow((tx, ty, tw, th) => {
-          if (tw <= 1 || th <= 1) {
+          if (tw <= MEASURE_INVALID_MAX_PX || th <= MEASURE_INVALID_MAX_PX) {
             failSoft();
             return;
           }
-          const endSize = 38;
+          const endSize = FLIGHT_LANDING_THUMB_SIZE_PX;
           const toX = tx + tw / 2 - endSize / 2;
           const toY = ty + th / 2 - endSize / 2;
-          /** Square only: button measure is a wide rect — center a square on it so width/height never diverge. */
+          // Button bounds are non-square; min side + center keeps the flying thumb square end-to-end.
           const fromSize = Math.min(sw, sh);
           const fromMidX = sx + sw / 2;
           const fromMidY = sy + sh / 2;
