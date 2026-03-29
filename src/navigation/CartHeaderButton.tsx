@@ -1,34 +1,17 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSequence,
-  withSpring,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import { useAppStore } from '../store';
 import { colors } from '../theme/colors';
 import { useCartAnchor } from './CartAnchorContext';
+import { useCartBadgePulseStyle } from './useCartBadgePulse';
 
 export const CartHeaderButton = memo(function CartHeaderButton() {
   const { cartAnchorRef } = useCartAnchor();
   const count = useAppStore((s) => s.cartLineItems.length);
   const pulseId = useAppStore((s) => s.cartBadgePulseId);
-  const scale = useSharedValue(1);
-
-  useEffect(() => {
-    if (pulseId === 0) return;
-    scale.value = 1;
-    scale.value = withSequence(
-      withSpring(1.2, { damping: 11, stiffness: 520 }),
-      withSpring(1, { damping: 14, stiffness: 380 }),
-    );
-  }, [pulseId, scale]);
-
-  const pulseStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
+  const pulseStyle = useCartBadgePulseStyle(pulseId);
 
   return (
     <View

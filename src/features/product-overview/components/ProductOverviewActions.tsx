@@ -1,5 +1,5 @@
 import { forwardRef, memo } from 'react';
-import { AccessibilityInfo, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../theme/colors';
 
 type Props = {
@@ -32,14 +32,6 @@ export const ProductOverviewActions = memo(
     );
   }),
 );
-
-export async function shouldSkipFlightAnimation(): Promise<boolean> {
-  try {
-    return await AccessibilityInfo.isReduceMotionEnabled();
-  } catch {
-    return false;
-  }
-}
 
 const styles = StyleSheet.create({
   block: {
