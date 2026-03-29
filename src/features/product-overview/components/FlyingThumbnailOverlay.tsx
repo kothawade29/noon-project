@@ -1,13 +1,8 @@
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
-import Animated, {
-  Easing,
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 
 export type FlightRect = {
   x: number;
@@ -56,7 +51,7 @@ export function FlyingThumbnailOverlay({ payload, onFinished }: Props) {
       1,
       { duration: DURATION_MS, easing: Easing.out(Easing.cubic) },
       (finished) => {
-        if (finished) runOnJS(onFinished)();
+        if (finished) scheduleOnRN(onFinished);
       },
     );
   }, [payload]);
